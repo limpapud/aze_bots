@@ -1,0 +1,2 @@
+ %mysqldump.exe faylına yol % --user=root --password=%ŞİFRƏ%  --host=%HOST% --port=%PORT (adətən 3306)% --result-file="%PATH%\sqlbackup_%Məlumat Bazası_ADI%.%date:~10,4%%date:~7,2%%date:~4,2%.sql" --default-character-set=utf8 --single-transaction=TRUE --databases "%Məlumat Bazası%"
+REM Batch Qeyd olunmuş Məlumat Bazasının rezerv nüsxəsin çırarır və əməliyyat vaxt möhürü adı ilə yaddaşa verir.
