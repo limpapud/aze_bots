@@ -1,6 +1,5 @@
 adminBOT
 ===================
-
 **Qısa məlumat:**
 
 **adminBOT** kiçik və orta çətinlikdə olan administrativ tapşırıqları həll etmək üçün istifadə oluna bilər. İstifadə olunan Telegram API-si [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI).
@@ -35,6 +34,10 @@ adminBOT
 
 - *Faylların çat üzərindən göndərilməsi*
 
+---------
+Nümaiş
+----------
+![alt text](https://github.com/limpapud/aze_bots/blob/master/adminBOT/assets/demo.jpeg)
 ----------
 Fayllar
 -------------------
