@@ -13,6 +13,8 @@
 - Batch.
 - Python daxilində olan [os]( https://docs.python.org/2/library/os.html) modulu.
 - Python daxilində olan [glob]( https://docs.python.org/3/library/glob.html) modulu.
+- [SQLite]( https://www.sqlite.org/) modulu. Məlumat bazası kimi çıxış edir.
+- Şifrələrin saxlanması üçün [hashlib]( https://docs.python.org/2/library/hashlib.html) modulu.
 
 
 ### Bot ilə hal-hazırda mümkün tapşırıqlar:
@@ -22,7 +24,9 @@
 - *məlumat bazası rezerv nüsxələrin çıxarılması*
 - *sistem haqqında məlumatın alınması*
 - *servislərin "restart"-ı*
-- *Log faylların çat üzərindən göndərilməsi* (*Əlavə olundu 07.12.17*)
+- *Log faylların çat üzərindən göndərilməsi* 
+- *şifrlərin SQLite məlumat bazasında md5 (salt) vəziyyətində saxlanılması*
+- *avtorizasiya və autentifikasiya mexanizmləri*
 
 ### Planlaşdırılan funksional:
 
