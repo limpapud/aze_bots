@@ -5,3 +5,5 @@ script_fd = '/BATs/'
 #Back up logların yerləşmə qovluğu
 vbackup_logfolder='/BackUps/videolog/'
 mysqlbackup_logfolder='/BackUps/mysqlbackup/'
+adminBOTDB='/adminBOT.db'
+##md5salt = 'limpapud'
