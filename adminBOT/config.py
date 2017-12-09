@@ -1,9 +1,13 @@
-# Tokeni qeyd edin
-token = 'TOKEN' #TOKENİ QEYD EDİN
-#İstifadə olunan BAT Fayl saxlancına yol
+# API configuration
+token = 'TOKEN' #add token here
+
+#BAT file folder
 script_fd = '/BATs/'
-#Back up logların yerləşmə qovluğu
+
+#Backup folder configuration
 vbackup_logfolder='/BackUps/videolog/'
 mysqlbackup_logfolder='/BackUps/mysqlbackup/'
+
+# Database configuration
 adminBOTDB='/adminBOT.db'
 ##md5salt = 'limpapud'

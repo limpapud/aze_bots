@@ -1,64 +1,67 @@
 # adminBOT [![GitHub issues](https://img.shields.io/github/issues/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/issues) [![GitHub stars](https://img.shields.io/github/stars/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/stargazers) [![GitHub forks](https://img.shields.io/github/forks/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/network) [![GitHub license](https://img.shields.io/github/license/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/blob/master/LICENSE)
 ![alt text](https://github.com/limpapud/aze_bots/blob/master/adminBOT/assets/logo.png)
 
-### Brief information:
+### Qısa məlumat:
 
-**adminBOT** is system administrator day-to-day small and medium size automation bot tool based on [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI). 
+**adminBOT** kiçik və orta çətinlikdə olan administrativ tapşırıqları həll etmək üçün istifadə oluna bilər. İstifadə olunan Telegram API-si [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI).
 
-### Languages and libraries used:
+### İstifadə olunan kitabxanalar və dillər:
 
-- [Python 3.6]( https://www.python.org/downloads/release/python-360/) - high-level programming language for general-purpose programming... but I do not think that this language needs any introduction.
-- [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI) - a simple, but extensible Python implementation for the Telegram Bot API.
-- [psutil]( https://github.com/giampaolo/psutil) - cross-platform lib for process and system monitoring in Python.
+- [Python 3.6]( https://www.python.org/downloads/release/python-360/) - sadə olduğu qədər güclü programlaşdırma dili.
+- [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI) - sadə amma çevik pyhton üzərində yazışmış Telegram APİ-si.
+- [psutil]( https://github.com/giampaolo/psutil) - sistem monitorinqi və sistem resursları istifadəsi üçün istifadə olunan kitabxana.
 - Batch.
-- [os]( https://docs.python.org/2/library/os.html) - module provides a portable way of using operating system dependent functionality.
--  [glob]( https://docs.python.org/3/library/glob.html) - unix style pathname pattern expansion.
-- [SQLite]( https://www.sqlite.org/)-SQL database engine.
-- [hashlib]( https://docs.python.org/2/library/hashlib.html) -module implements a common interface to many different secure hash and message digest algorithms.
+- Python daxilində olan [os]( https://docs.python.org/2/library/os.html) modulu əməliyyat sistemi funksiyalarının istifadəsi üçün nəzərdə tutulmuş modul.
+- Python daxilində olan [glob]( https://docs.python.org/3/library/glob.html) modulu unix tipli qısayol modulu.
+- [SQLite]( https://www.sqlite.org/) modulu. Məlumat bazası kimi çıxış edir.
+- Şifrələr və mesajlardan "hash"yaradılması üçün istifadə olunan [hashlib]( https://docs.python.org/2/library/hashlib.html) modulu.
 
 
-### Tasks accomplished by bot:
+### Bot ilə hal-hazırda mümkün tapşırıqlar:
 
-- *archiving*
-- *folder backup*
-- *database backup*
-- *system information gathering*
-- *services restart*
-- *geting logs about tasks  accomplised* 
-- *special 'command line' mode for immediate Windows/Unix terminal*
+- *arxivləşdirmə*
+- *qovuğ rezerv nüsxələrin çıxarılması*
+- *məlumat bazası rezerv nüsxələrin çıxarılması*
+- *sistem haqqında məlumatın alınması*
+- *servislərin "restart"-ı*
+- *Log faylların çat üzərindən göndərilməsi*
+-  *xüsusi "***əmr modu***" əmrləri bilavasitə mesajdan icra edir.*
 
-### Bot features
-- ***increased security*** - *passwords are stored in database as "salted" md5.*
-- ***attached database***- possibility to save files and other information in lightweight database.
-- ***command-based security functions and advanced authentication & authorization algorithms*** - every task is checked for authorization. 30-minute user-session applied for each command session. 
+### Özəlliklər
 
-### Planned functionality:
+- ***artırılmış təhlükəsizlik*** - *şifrlərin məlumat bazasında md5 (salt) vəziyyətində saxlanılması.*
+- ***əlavə olunmuş məlumat bazası***- istifadəçi faylların və məlumatların çevik və yüngül SQLite məlumat bazasında saxlanılması.
+- ***əmr əsasında təhlükəsizlik funksiyaları və mütərəqqi autentifikasiya & avtorizasiya alqoritmləri*** - hər bir verilmiş əmr avtorizasiya mexanizmından keçir. Hər bir istifadəçi üçün 30-dəqiqəlik sessiya yaradılması Sizi kənar şəxslərin əməllərinən qoruyur.
 
-- *SQL tasks execution*
-- *SQL Server Reporting Services integration (report execution and report obtaining as chat attachment)*
-- *SQL Server Integration Services integration (task execution)*
-- "Webhook" usage
 
-### Demo
+### Planlaşdırılan funksional:
+
+- *SQL Sorğuların icrası*
+- *"Webhook" istifadə olunması*
+- *SQL Server Reporting Services integrasiyası (hesabatların icrası və çat üzərindən alınması)*
+- *SQL Server Integration Services integration (tapşırıqların icrası)*
+
+
+### Nümaiş
 ----------
 
 ![alt text](https://github.com/limpapud/aze_bots/blob/master/adminBOT/assets/demo.png)
 
-Files
+Fayllar
 -------------------
-There is description of files in repository:
+Mövcud faylların və qovluqların açığlaması aşağıdaki kimidir:
 
-Main folder:
+Əsas qovluq:
 
-> - *adminBOT.py* - main bot file.
-> - *adminBOT.db* - SQLite database for bot.
-> - *config.py* - configuration file.
-> - *audit_functions.py* -  password based authentication & authorization functions.
+> - *adminBOT.py* - əsas bot faylı.
+> - *config.py* - sazlamaların saxlandığı fayl.
+> - *adminBOT.db* - bot üçün SQLite məlumat bazası.
+> - *audit_functions.py* -  şifrə əsasında əsasında təhlükəsizlik funksiyaları və autentifikasiya & avtorizasiya mexanizmləri.
 
-**BATs** folder
-> - *folderbackup.bat* - file backup based on file age in folder.
-> - *mysql_backup.bat* - MySQL Database backup.
-> - *restart_oo.bat* - Windows service restart.
+**BATs** qovluğu
+> - *folderbackup.bat* - qovluqlardan faylların yaşına uyğun yerdəyişməsi.
+> - *mysql_backup.bat* - MySQL Məlumat Bazalarından sürət çıxarma üçün batch fayl.
+> - *restart_oo.bat* - serverdə servisin restartı üçün batch fayl.
 
 İştirak və tövhə vermə
 ----------------------

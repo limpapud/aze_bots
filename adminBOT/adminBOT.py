@@ -1,119 +1,119 @@
-from telebot import TeleBot as tb
+from telebot import TeleBot as tb # Telegram API
 from telebot import types
-import os
-import config
-import psutil
-import glob
-import subprocess
-import time
-import sqlite3
-import hashlib
-import audit_functions
-bot = tb(config.token)
+import os # native os library for Operating system functions
+import config # configuration file
+import psutil # process and system monitoring library
+import glob # dealing with paths
+import subprocess # running commands (Windows  / UNIX)
+import time # library for time operations.
+import sqlite3 # SQLite for database operations
+import hashlib # hashing into MD5
+import audit_functions # security functions
+bot = tb(config.token) #  API token
 
-@bot.message_handler(commands=['login'])
+@bot.message_handler(commands=['login']) # handler for cases with '/login" command where user authenticates into adminBOT
 def vb_reply(message):
     try:
-        a = str.replace(message.text, '/login ', '')
-        MAS = a.encode('utf-8')
-        hash = hashlib.md5(MAS).hexdigest()
-        t = (hash,)
-        conn = sqlite3.connect(config.adminBOTDB)
-        c = conn.cursor()
-        c.execute('SELECT login FROM users WHERE password = ?', t)
-        login = c.fetchone()[0]
-        t = (message.from_user.id, hash,)
-        c.execute("""UPDATE users set last_login = datetime(CURRENT_TIMESTAMP, 'localtime'),user_chat_id = ? where password = ?""", t)
-        bot.send_message(message.from_user.id, "Xoş gəldin " + login)
-        conn.commit()
-        conn.close()
-    except:
-        bot.send_message(message.from_user.id, "Şifrə səhvdir")
+        a = str.replace(message.text, '/login ', '') # replacing '/login' in input string by empty string
+        MAS = a.encode('utf-8') #encoding with UTF-8
+        hash = hashlib.md5(MAS).hexdigest() #hashing into MD5
+        t = (hash,) # assinging hashed password to tuple
+        conn = sqlite3.connect(config.adminBOTDB) # connecting to SQLlite BD
+        c = conn.cursor() #creating cursor from connection.
+        c.execute('SELECT login FROM users WHERE password = ?', t) #executing qurerry to find out users with this password
+        login = c.fetchone()[0] # getting login of authenticated user
+        t = (message.from_user.id, hash,) # updating tuple with new values for next qurerry
+        c.execute("""UPDATE users set last_login = datetime(CURRENT_TIMESTAMP, 'localtime'),user_chat_id = ? where password = ?""", t) # updating "last_login" timestamp with CURRENT_TIMESPAMP
+        bot.send_message(message.from_user.id, "Welcome " + login) # Greeting user with his Login
+        conn.commit() # Comitting changes to DB
+        conn.close() # Closing connection to DB
+    except: # If error occurs then..
+        bot.send_message(message.from_user.id, "Wrong password, please enter again again") # ..then send this message to user
 
 
-@bot.message_handler(commands=['runcmd'])
-def send_start(message):
-    if audit_functions.check_role(message) == 401:
-        command = str.replace(message.text,'/runcmd ', '')
-        bot.send_message(message.from_user.id,'"' + command + '" komandası icra olunur...')
+@bot.message_handler(commands=['runcmd']) # handler for cases with '/runcmd" command where user enters cmd/bash string.
+def send_runcmd(message):
+    if audit_functions.check_role(message) == 401: # if user is authorised to use this command then move to the lines
+        command = str.replace(message.text,'/runcmd ', '') # replacing '/runcmd' in input string by empty string
+        bot.send_message(message.from_user.id,'"' + command + '" command execution started...') # Notification abour start of execution with name of command
         try:
-            subprocess.run(command)
-            bot.send_message(message.from_user.id, 'Uğurla icra olundu')
+            subprocess.run(command) # try to start command
+            bot.send_message(message.from_user.id, 'Sucessfully executed ') # execution completed
         except:
-            bot.send_message(message.from_user.id, 'Komanda səhvlə başa çatdı')
+            bot.send_message(message.from_user.id, 'Error happened while execution of requested command. Please check for permissiond or typos in command') # execution failed due to some typo or other problem
     else:
-        bot.send_message(message.from_user.id, 'Icra etməyə icazə yoxdur...')
+        bot.send_message(message.from_user.id, 'You have no permission to execute this command...') # if not authorised then return ' No permission to execute' message
 
 
-@bot.message_handler(commands=['start'])
+@bot.message_handler(commands=['start']) # handler for cases with '/start" command where user gets to know about bot.
 def send_start(message):
-    bot.send_photo(message.from_user.id, 'https://for24.ru/uploads/posts/vsefoto/telegram-bot1.png',caption='AvtoBot v081217T0016')
-    bot.send_message(message.from_user.id,'AvtoBot-a xoş gəldin, zəhmət olsa lazimi komandalar arasında lazım olanı seç  \n  \n Cari komanda siyahısı\n /restart_oo - OpenOffice servisin restartı \n /systeminfo Sistem haqqında məlumat \n  \n Rezerv nüsxələmə və arxivasiya \n /videobackup Videoyazıların nüsxələnmə prosessi \n /mysql_backup MySql məlumat bazalarının nüsxələmə prossesi')
+    bot.send_photo(message.from_user.id, 'https://for24.ru/uploads/posts/vsefoto/telegram-bot1.png',caption='adminBOT v091217T1553')
+    bot.send_message(message.from_user.id,' Welcome to adminBOT, please select command among other  \n  \n List of all commands:\n /restart_oo - Restart OpenOffice service \n /systeminfo System information \n /runcmd %command% to run CMD or Bash command \n  \n Backup and archiving: \n /videobackup Videorecording backup \n /mysql_backup MySQL Database backup')
 
 
-@bot.message_handler(commands=['restart_oo'])
+@bot.message_handler(commands=['restart_oo']) # handler for cases with '/restart_oo" command that restarts OpenOffice service.
 def oo_reply(message):
-    if audit_functions.check_role(message)==401:
-        bot.send_message(message.from_user.id, "Servis söndürülür...")
-        os.startfile(config.script_fd + 'restart_oo.bat')
-        bot.send_message(message.from_user.id, "Servis başlanır")
-        #ToDo Müvəffəqiyyətli əməliyyat statusun əlavə et
+    if audit_functions.check_role(message)==401: # if user is authorised to use this command then move to the lines
+        bot.send_message(message.from_user.id, "Stopping service...")
+        os.startfile(config.script_fd + 'restart_oo.bat') # executing 'restart_oo.bat' batch file from 'BATs' folder.
+        bot.send_message(message.from_user.id, "Starting service")
+        # ToDo Add Sucsessfully operation check
     else:
-        bot.send_message(message.from_user.id, 'Icra etməyə icazə yoxdur...')
+        bot.send_message(message.from_user.id, 'You have no permission to execute this command...') # if not authorised then return ' No permission to execute' message
 
 
-@bot.message_handler(commands=['systeminfo'])
+@bot.message_handler(commands=['systeminfo']) # handler for cases with '/systeminfo" command that outputs information about server.
 def si_reply(message):
-    if audit_functions.check_role(message) == 401:
-        bot.send_message(message.from_user.id, "Məlumat yığılır ...")
-        RAM_BUSY = str(psutil.virtual_memory().percent)
-        C_DISK_BUSY = str(psutil.disk_usage('C:/').percent)
-        D_DISK_BUSY = str(psutil.disk_usage('D:/').percent)
+    if audit_functions.check_role(message) == 401: # if user is authorised to use this command then move to the lines
+        bot.send_message(message.from_user.id, "Gathering information ...") # sending 'Gathering information ...' message
+        RAM_BUSY = str(psutil.virtual_memory().percent) # assigning RAM busy % to RAM BUSY variable
+        C_DISK_BUSY = str(psutil.disk_usage('C:/').percent) # assigning C drive busy % to C_DISK_BUSY variable
+        D_DISK_BUSY = str(psutil.disk_usage('D:/').percent) # assigning D drive busy % to D_DISK_BUSY variable
         CPU_BUSY = 0
-        for x in range(10):
-            CPU_BUSY = CPU_BUSY + psutil.cpu_percent(interval=1)
-        CPU_BUSY = str(round(CPU_BUSY / 10, 2))
-        bot.send_message(message.from_user.id, 'CPU məşğul: ' + CPU_BUSY + ' % \nC:\ diski məşğul: ' + C_DISK_BUSY + ' % \nD:\ diski məşğul: ' + D_DISK_BUSY + ' % \nRAM məşğul: ' + RAM_BUSY + ' %')
-        #ToDo Müvəffəqiyyətli əməliyyat statusun əlavə et
-        #ToDo Daha nə əlavə etmək mümkündür? Fikirləş.
+        for x in range(10): # iterating to...
+            CPU_BUSY = CPU_BUSY + psutil.cpu_percent(interval=1) # to get information about 10 second period CPU busy %
+        CPU_BUSY = str(round(CPU_BUSY / 10, 2)) # dividing output from previous step to number of seconds to get average
+        bot.send_message(message.from_user.id, 'CPU busy: ' + CPU_BUSY + ' % \nC:\ drive busy: ' + C_DISK_BUSY + ' % \nD:\ drive busy: ' + D_DISK_BUSY + ' % \nRAM busy: ' + RAM_BUSY + ' %') # outputing and sending information gathered to user.
+        #ToDo Add Sucsessfully operation check
+        #ToDo What to add? Think about this.
     else:
-        bot.send_message(message.from_user.id, 'Icra etməyə icazə yoxdur...')
+        bot.send_message(message.from_user.id, 'You have no permission to execute this command...') # if not authorised then return ' No permission to execute' message
 
-@bot.message_handler(commands = ['videobackup'])
+@bot.message_handler(commands = ['videobackup']) # handler for cases with '/systeminfo" command that outputs information about server.
 def vb_reply(message):
-    if audit_functions.check_role(message) == 401:
-        bot.send_message(message.from_user.id, "Nüsxələmə başlanılır...")
-        os.startfile(config.script_fd + 'folderbackup.bat')
-        time.sleep(75)
-        bot.send_message(message.from_user.id, "Nüsxələmə bitdi ...")
-        v_logfile = glob.glob(config.vbackup_logfolder + '*.log')
-        youngest_log = max(v_logfile, key=os.path.getctime)
-        youngest_log = str.replace(youngest_log, '\\', '/')
-        file_to_send = open(youngest_log, 'rb')
-        bot.send_document(message.chat.id,file_to_send)
-        #ToDo Müvəffəqiyyətli əməliyyat statusun əlavə et
+    if audit_functions.check_role(message) == 401: # if user is authorised to use this command then move to the lines
+        bot.send_message(message.from_user.id, "Starting backup process...")
+        os.startfile(config.script_fd + 'folderbackup.bat') #   executing 'folderbackup.bat' batch file from 'BATs' folder.
+        time.sleep(4) # wait for 75 seconds (look at ToDo below
+        bot.send_message(message.from_user.id, "Backup process has ended. Please check logs...")
+        v_logfile = glob.glob(config.vbackup_logfolder + '*.log') # looking for files with '.log' extention in config.vbackup_logfolder folder.
+        youngest_log = max(v_logfile, key=os.path.getctime) # checking and choosing the file with maximum TIMESTAMP (i.e youungest one)
+        youngest_log = str.replace(youngest_log, '\\', '/') # fixing full path to log file by replacing '\' by '/'
+        file_to_send = open(youngest_log, 'rb') # opening file and assigning filestream to file_to_send variable
+        bot.send_document(message.chat.id,file_to_send) # sending logfile to user
+        # ToDo Add Sucsessfully operation check
     else:
-        bot.send_message(message.from_user.id, 'Icra etməyə icazə yoxdur...')
+        bot.send_message(message.from_user.id, 'You have no permission to execute this command...') # if not authorised then return ' No permission to execute' message
 
-@bot.message_handler(commands=['mysql_backup'])
+@bot.message_handler(commands=['mysql_backup']) # handler for cases with '/systeminfo" command that outputs information about server.
 def vb_reply(message):
-    if audit_functions.check_role(message) == 401:
-        bot.send_message(message.from_user.id, "Nüsxələmə başlanılır ...")
-        os.startfile(config.script_fd + 'mysql_backup.bat')
-        time.sleep(75)
-        bot.send_message(message.from_user.id, "Nüsxələmə bitdi ...")
-        mysql_logfile = glob.glob(config.mysqlbackup_logfolder + '*.log')
-        youngest_log = max(mysql_logfile, key=os.path.getctime)
-        youngest_log = str.replace(youngest_log, '\\', '/')
-        file_to_send = open(youngest_log, 'rb')
-        bot.send_document(message.chat.id,file_to_send)
-        #ToDo Müvəffəqiyyətli əməliyyat statusun əlavə et
+    if audit_functions.check_role(message) == 401: # if user is authorised to use this command then move to the lines
+        bot.send_message(message.from_user.id, "Starting backup process...")
+        os.startfile(config.script_fd + 'mysql_backup.bat')  # executing 'mysql_backup.bat' batch file from 'BATs' folder.
+        time.sleep(75) # wait for 75 secons (look at ToDo)
+        bot.send_message(message.from_user.id, "Backup process has ended. Please check logs...")
+        mysql_logfile = glob.glob(config.mysqlbackup_logfolder + '*.log') # looking for files with '.log' extention in config.mysqlbackup_logfolder folder.
+        youngest_log = max(mysql_logfile, key=os.path.getctime) # checking and choosing the file with maximum TIMESTAMP (i.e youungest one)
+        youngest_log = str.replace(youngest_log, '\\', '/') # fixing full path to log file by replacing '\' by '/'
+        file_to_send = open(youngest_log, 'rb') # opening file and assigning filestream to file_to_send variable
+        bot.send_document(message.chat.id,file_to_send) # sending logfile to user
+        # ToDo Add Sucsessfully operation check
     else:
-        bot.send_message(message.from_user.id, 'Icra etməyə icazə yoxdur...')
+        bot.send_message(message.from_user.id, 'You have no permission to execute this command...') # if not authorised then return ' No permission to execute' message
 
 
-@bot.message_handler(content_types=['text'])
+@bot.message_handler(content_types=['text']) # handler for with unknown 'text' type intent.
 def unknown_intent(message):
-    bot.send_video(message.from_user.id, 'https://media.giphy.com/media/l41lXkx9x8OTM1rwY/giphy.gif', caption='Məni helə yazdığını anlamaq üçün sazlamamısan, zəhmət olmasa /start seçib menyuya keç.')
+    bot.send_video(message.from_user.id, 'https://media.giphy.com/media/l41lXkx9x8OTM1rwY/giphy.gif', caption='I have no clue how to speak with people. Please use /start command to get list of possible commands.') # send user to /start menu
 
-bot.polling()
+bot.polling(none_stop=True) #start pooling for messages none-stop

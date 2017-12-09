@@ -1,6 +1,6 @@
 # adminBOT [![GitHub issues](https://img.shields.io/github/issues/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/issues) [![GitHub stars](https://img.shields.io/github/stars/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/stargazers) [![GitHub forks](https://img.shields.io/github/forks/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/network) [![GitHub license](https://img.shields.io/github/license/limpapud/aze_bots.svg)](https://github.com/limpapud/aze_bots/blob/master/LICENSE)
 ![alt text](https://github.com/limpapud/aze_bots/blob/master/adminBOT/assets/logo.png)
-###  [M?qal?ni Az?rbaycanca oxumaq]( https://github.com/limpapud/aze_bots/blob/master/adminBOT/README_az.md)
+###  [Məqaləni Azərbaycanca oxumaq]( https://github.com/limpapud/aze_bots/blob/master/adminBOT/README_az.md)
 
 ### Brief information:
 
