@@ -8,8 +8,8 @@
 ### İstifadə olunan kitabxanalar və dillər:
 
 - [Python 3.6]( https://www.python.org/downloads/release/python-360/) - sadə olduğu qədər güclü programlaşdırma dili.
-- [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI) - sadə amma çevik pyhton üzərində yazışmış Telegram APİ-si.
-- [psutil]( https://github.com/giampaolo/psutil) - sistem monitorinqi və sistem resursları istifadəsi üçün istifadə olunan kitabxana.
+- [pyTelegramBotAPI]( https://github.com/eternnoir/pyTelegramBotAPI) - sadə amma çevik python üzərində yazışmış Telegram APİ-si.
+- [psutil]( https://github.com/giampaolo/psutil) - sistem monitorinqi və sistem resurslarından istifadə üçün istifadə olunan kitabxana.
 - Batch.
 - Python daxilində olan [os]( https://docs.python.org/2/library/os.html) modulu əməliyyat sistemi funksiyalarının istifadəsi üçün nəzərdə tutulmuş modul.
 - Python daxilində olan [glob]( https://docs.python.org/3/library/glob.html) modulu unix tipli qısayol modulu.
@@ -36,7 +36,7 @@
 
 ### Planlaşdırılan funksional:
 
-- *SQL Sorğuların icrası*
+- *SQL Sorğuların əmr üzrə icrası*
 - *"Webhook" istifadə olunması*
 - *SQL Server Reporting Services integrasiyası (hesabatların icrası və çat üzərindən alınması)*
 - *SQL Server Integration Services integration (tapşırıqların icrası)*
@@ -72,7 +72,7 @@ Lahiyədə iştirak edib tövhə vermək istəyirsən? Əla! Bunun üçün **For
 > - Təklif və iradları səhifə sonunda qeyd olumuş elektron ünvana və ya **Issues** -ə əlavə ilə qeyd edə bilərsiniz.
 
 
-İstifadə
+İstifadə qaydaları
 -------------
 Lahiyə **MIT** lisenziyası ilə yayımlanır.
 > **Bu deməkdir ki:**
