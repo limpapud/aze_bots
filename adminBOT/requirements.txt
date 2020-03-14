@@ -1,2 +1,2 @@
-psutil==5.2.2
+psutil==5.6.6
 pyTelegramBotAPI==3.5.1
