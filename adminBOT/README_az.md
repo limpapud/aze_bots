@@ -20,7 +20,7 @@
 ### Bot ilə hal-hazırda mümkün tapşırıqlar:
 
 - *arxivləşdirmə*
-- *qovuğ rezerv nüsxələrin çıxarılması*
+- *qovluq rezerv nüsxələrin çıxarılması*
 - *məlumat bazası rezerv nüsxələrin çıxarılması*
 - *sistem haqqında məlumatın alınması*
 - *servislərin "restart"-ı*
